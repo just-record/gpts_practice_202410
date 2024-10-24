@@ -1,0 +1,14 @@
+# python-dotenv
+fastapi
+uvicorn[standard]
+# gunicorn
+# psycopg2-binary
+# python-multipart
+# openai
+# langchain
+# langchain-openai
+# langchain_experimental
+# langchain-community
+# passlib[bcrypt]
+# python-jose[cryptography]
+# apscheduler
