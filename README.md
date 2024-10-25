@@ -1,7 +1,11 @@
 # GPTs Action practice
 
-GPTs Action의 연습을 위해 API서버를 구축
+API서버를 구축하여 GPTs Action을 연습
 
 ## 기본 API
 
-- 01.basic
+- 01.basic: 인증 없이 특정 도시의 날씨 정보를 제공
+
+## Post 방식의 API 서버
+
+- 02.post: `get`방식이 아닌 `post`방식으로 변경 하여 도시의 날씨 정보를 제공

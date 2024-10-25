@@ -6,8 +6,18 @@ BASE_URL = "http://localhost:8000"
 
 def get_weather(city):
     """Get weather for a specific city"""
-    response = requests.get(f"{BASE_URL}/weather/{city}")
-    print(f"\n Weather for {city}:")
+    # POST 요청을 위한 데이터 준비
+    data = {"city": city}
+    
+    # POST 요청 보내기
+    headers = {"Content-Type": "application/json"}
+    response = requests.post(
+        f"{BASE_URL}/weather",
+        json=data,
+        headers=headers
+    )
+    
+    print(f"\nWeather for {city}:")
     print(response.json())
 
 # Test all endpoints

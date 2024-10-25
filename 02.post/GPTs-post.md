@@ -2,7 +2,7 @@
 
 ## GPTs 생성하기
 
-- Name: `Get Weather information`
+- Name: `Get Weather information 2`
 - Description: `Get the weather information for a given city`
 - Instructions:
 
@@ -32,13 +32,24 @@
 ```python
 def get_weather(city):
     """Get weather for a specific city"""
-    response = requests.get(f"{BASE_URL}/weather/{city}")
-    print(f"\n Weather for {city}:")
+    # POST 요청을 위한 데이터 준비
+    data = {"city": city}
+    
+    # POST 요청 보내기
+    headers = {"Content-Type": "application/json"}
+    response = requests.post(
+        f"{BASE_URL}/weather",
+        json=data,
+        headers=headers
+    )
+    
+    print(f"\nWeather for {city}:")
     print(response.json())
 
 # Test all endpoints
 try:
     get_weather("서울")
+
 except requests.exceptions.RequestException as e:
     print(f"Error occurred: {e}")
     if hasattr(e, 'response') and e.response is not None:
@@ -50,56 +61,55 @@ except requests.exceptions.RequestException as e:
 
 ✔️ 결과
 
-- 실제 나온 결과에서 조금 수정 함. -> 테스트 과정에서 수정이 필요했고 거의 그대로 사용 가능 했음.
 - 아래의 url은 HTTPS여야 함 - HTTPS 설정은 생략
 
 ```yaml
 openapi: 3.1.0
 info:
-  title: Weather information API
-  description: This API provides weather information for various cities
+  title: Weather API
+  description: API for retrieving weather information for a specific city.
   version: 1.0.0
 servers:
   - url: https://localhost:8000
     description: Main production server
-
 paths:
-  /weather/{city}:
-    get:
+  /weather:
+    post:
       operationId: getWeather
-      summary: Get weather for a specific city.
-      description: Fetches the weather information for a specified city. The city name must be called in Korean.
-      parameters:
-        - name: city
-          in: path
-          required: true
-          description: Name of the city to retrieve weather data for.
-          schema:
-            type: string
+      summary: Get weather for a specific city
+      description: Retrieves the current weather for a provided city.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                city:
+                  type: string
+                  description: The name of the city to retrieve weather for
+              required:
+                - city
       responses:
         '200':
-          description: Weather data for the specified city.
+          description: Successfully retrieved weather information
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  city:
-                    type: string
-                    description: Name of the city.
                   temperature:
                     type: number
                     format: float
-                    description: Temperature in the city.
-                  condition:
+                    description: Current temperature in the city
+                  humidity:
+                    type: integer
+                    description: Current humidity percentage in the city
+                  description:
                     type: string
-                    description: Current weather condition in the city.
-                required:
-                  - city
-                  - temperature
-                  - condition
-        '404':
-          description: City not found.
+                    description: A short description of the weather
+        '400':
+          description: Bad Request - Invalid city parameter
           content:
             application/json:
               schema:
@@ -107,9 +117,17 @@ paths:
                 properties:
                   error:
                     type: string
-                    description: Error message when the city is not found.
-                required:
-                  - error
+                    description: Error message describing what went wrong
+        '500':
+          description: Server Error - Something went wrong on the server
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message explaining server failure
 ```
 
 ## GPTs Action schema 등록
@@ -117,7 +135,7 @@ paths:
 - Action: `create new action`
   - Authentication: None
   - Schema: 위에서 생성한 Open API 스키마
-  - Privacy policy: None 또는 <https://app.example.com/privacy> - 존재하지 않는 링크
+  - Privacy policy: Only me
 
 ✔️ Privacy policy - 개인정보 처리방침
 
@@ -169,13 +187,13 @@ Precipitation: 0 mm
 Air Quality: Moderate (보통)
 Sunrise: 6:45 AM
 Sunset: 5:45 PM
-Let me know if you need more details!
+This data was last updated today at 10:00 AM. Let me know if you'd like more details!
 ```
 
 ✔️ 부산의 날씨는?
 
 ```plaintext
-현재 부산의 날씨는 다음과 같습니다:
+부산의 현재 날씨는 다음과 같습니다:
 기온: 19.5°C
 날씨: 눈
 습도: 75%
@@ -184,7 +202,7 @@ Let me know if you need more details!
 미세먼지: 좋음
 일출: 오전 6:35
 일몰: 오후 5:35
-추가 정보가 필요하시면 말씀해 주세요!
+이 데이터는 오늘 오전 10시에 업데이트되었습니다. 추가 정보가 필요하시면 말씀해 주세요!
 ```
 
 ✔️ 엑스코의 날씨는?
@@ -192,7 +210,7 @@ Let me know if you need more details!
 ```plaintext
 엑스코(EXCO)는 대구에 위치한 컨벤션 센터입니다. 대구의 날씨 정보를 가져오겠습니다.
 
-현재 대구(엑스코)의 날씨는 다음과 같습니다:
+엑스코가 위치한 대구의 현재 날씨는 다음과 같습니다:
 기온: 18°C
 날씨: 구름 조금
 습도: 60%
@@ -201,5 +219,5 @@ Let me know if you need more details!
 미세먼지: 좋음
 일출: 오전 6:40
 일몰: 오후 5:40
-다른 정보가 필요하시면 알려주세요!
+이 정보는 오늘 오전 10시에 업데이트되었습니다. 다른 정보가 필요하시면 알려주세요!
 ```

@@ -1,8 +1,7 @@
-# 기본 API 서버
+# Post 방식의 API 서버
 
-- 날씨를 제공하는 API 서버 구축
-- 지역은 서울, 대구, 부산을 제공
-- `/weather/{city}`: 해당 도시의 날씨 정보
+- 01.basic과 거의 동일 함
+- `get`방식이 아닌 `post`방식으로 변경 하여 도시의 날씨 정보를 제공
 
 ## 실행 방법
 
@@ -20,7 +19,7 @@ python call_api.py
 
 ## GPTs 작성 및 테스트
 
-- GPTs-basic.md
+- GPTs-post.md
 
 ## 주의사항
 

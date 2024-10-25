@@ -1,7 +1,13 @@
 from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 import uvicorn
 
 app = FastAPI(title="Simple Weather API")
+
+### 추가된 부분
+# Pydantic 모델 정의
+class WeatherRequest(BaseModel):
+    city: str
 
 # Sample weather data storage
 weather_data = {
@@ -41,11 +47,12 @@ weather_data = {
 }
 
 
-@app.get("/weather/{city}")
-def get_weather(city: str):
-    if city not in weather_data:
+### 수정된 부분
+@app.post("/weather")
+def get_weather(request: WeatherRequest):
+    if request.city not in weather_data:
         raise HTTPException(status_code=404, detail="City not found")
-    return weather_data[city]
+    return weather_data[request.city]
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
