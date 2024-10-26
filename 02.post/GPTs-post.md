@@ -135,38 +135,7 @@ paths:
 - Action: `create new action`
   - Authentication: None
   - Schema: 위에서 생성한 Open API 스키마
-  - Privacy policy: Only me
-
-✔️ Privacy policy - 개인정보 처리방침
-
-- Only me로 적용 할 경우 입력하지 않아도 됨
-- 존재하지 않는 링크를 입력 해도 저장은 가능 함: 실 사용시에는 정확한 Privacy policy를 입력 해야 하고 진행 해야 함
-- 아래는 GPT에게 Privacy policy에 대한 문의의 답
-
-```markdown
-### Why the Privacy Policy is Important
-A privacy policy is a legal document that explains how you, as a service provider or developer, collect, use, store, and protect user data. Many platforms require it to ensure transparency and comply with data protection regulations, such as the General Data Protection Regulation (GDPR) in Europe or the California Consumer Privacy Act (CCPA) in the U.S.
-
-When you integrate an API or app with a platform, it's essential to show users how their data will be handled. For instance, if your service collects personally identifiable information (PII) like emails, names, or user preferences, the privacy policy should state:
-
-- What data is collected (e.g., name, location, browsing behavior).
-- How the data is used (e.g., for improving services, marketing, analytics).
-- How long the data is retained.
-- Whether the data is shared with third parties.
-- User rights (e.g., access to their data, deletion requests).
-- Contact information if users have concerns about their privacy.
-
-### Example Privacy Policy
-
-Here’s an example of what you might include:
-
-- What data we collect: We collect email addresses and usage data.
-- How we use your data: We use your email to send important updates about our service, and usage data to improve our user experience.
-- Data sharing: We don’t share your data with third parties, except for essential service providers such as payment processors or analytics platforms.
-- Data retention: Your data is stored for as long as your account remains active or as required by law.
-- User rights: You can request the deletion or modification of your data at any time.
-- Contact: For questions about your privacy, please reach out to us at privacy@yourapp.com.
-```
+  - Privacy policy: 생략 (아래에서 Only me 선택)
 
 - `Create` -> Option 선택 ( Only me / Anyone with the link / GPT Store)
 
