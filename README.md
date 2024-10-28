@@ -13,3 +13,7 @@ API서버를 구축하여 GPTs Action을 연습
 ## API-KEY를 사용한 인증
 
 - 03.apikey: API-KEY를 사용하여 인증을 추가(Bearer Token)
+
+## `x-openai-isConsequential` 사용
+
+- 04.isConsequential: `x-openai-isConsequential`의 사용법 간략 소개
